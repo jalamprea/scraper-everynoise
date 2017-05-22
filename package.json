@@ -1,0 +1,21 @@
+{
+  "name": "scraper-every-noise",
+  "version": "1.0.0",
+  "description": "Scrapper to get all artists from generes listed on the website everynoise.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scraper",
+    "everynoise",
+    "music",
+    "genres",
+    "artists"
+  ],
+  "author": "Julian Lamprea",
+  "license": "ISC",
+  "dependencies": {
+    "osmosis": "^1.1.4"
+  }
+}
