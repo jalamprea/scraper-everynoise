@@ -57,7 +57,9 @@ function scrape(options, callback, callbackLog, callbackError) {
 				} else {
 					console.log(listing.title + ' - ', artist.name);
 				}
-			}).log(callbackLog);
+			}).log(function(log) {
+				callbackLog(log, listing.title);
+			});
 		}
 	});
 }
