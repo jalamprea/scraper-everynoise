@@ -23,11 +23,20 @@ const utils = require('core-util-is');
 const BASE_URL = 'http://everynoise.com/';
 
 
-function scrape(options, callback, callbackLog, callbackError) {
+/**
+ * Scraper optional params:
+ * - includes : 			Array with the list of only genres that should be included  
+ * - excludes : 			Array with the list of only genres that should be excluded
+ * - callbackByGenre: 	 	Main callback executed once is available each artist by each genre
+ * - callbackLogByGenre: 	Callback used as LOG information on the artists by each gender
+ * - callbackErrorByGenre: 	Callback used as ERROR handler on the artists by each gender
+ * - callbackLogGeneral: 	Callback used as LOG information on the list of all genres page
+ * - callbackErrorGeneral: 	Callback used as ERROR handler on the list of all genres page
+ **/
+function scrape(options) {
 
 	var genres = 'engenremap.html';
 	var xpath = 'div .genre.scanme';
-
 
 	osmosis.get(BASE_URL + genres)
 	.find(xpath).set({
@@ -52,16 +61,16 @@ function scrape(options, callback, callbackLog, callbackError) {
 			.find(xpath).set('name').data((artist) => {
 
 				artist.name = artist.name.replace(/\»/g, '');
-				if ( callback && utils.isFunction(callback) ) {
-					callback(listing.title, artist.name.trim());
-				} else {
-					console.log(listing.title + ' - ', artist.name);
-				}
+				
+				options.callbackByGenre(listing.title, artist.name.trim());
+
 			}).log(function(log) {
-				callbackLog(log, listing.title);
-			});
+				options.callbackLogByGenre(log, listing.title);
+			}).error(options.callbackErrorByGenre);
 		}
-	});
+	})
+	.log(options.callbackLogGeneral)
+	.error(options.callbackErrorGeneral);
 }
 
 exports.scrape = scrape;

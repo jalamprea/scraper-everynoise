@@ -1,6 +1,6 @@
 {
   "name": "scraper-everynoise",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Scrapper to get all artists from generes listed on the website everynoise.com",
   "main": "index.js",
   "scripts": {
