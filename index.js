@@ -23,12 +23,12 @@ const utils = require('core-util-is');
 const BASE_URL = 'http://everynoise.com/';
 
 
-function scrape(options, callback) {
+function scrape(options, callback, callbackLog, callbackError) {
 
 	var genres = 'engenremap.html';
 	var xpath = 'div .genre.scanme';
 
-	// var i = 0;
+
 	osmosis.get(BASE_URL + genres)
 	.find(xpath).set({
 		title: 'text()',
@@ -59,7 +59,11 @@ function scrape(options, callback) {
 				}
 			});
 		}
-	});
+	}).log(callbackLog);
 }
 
 exports.scrape = scrape;
+var options = {
+	includes : ['salsa']
+};
+scrape(options);
