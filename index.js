@@ -53,17 +53,13 @@ function scrape(options, callback, callbackLog, callbackError) {
 
 				artist.name = artist.name.replace(/\»/g, '');
 				if ( callback && utils.isFunction(callback) ) {
-					callback(listing.title, artist.name);
+					callback(listing.title, artist.name.trim());
 				} else {
 					console.log(listing.title + ' - ', artist.name);
 				}
-			});
+			}).log(callbackLog);
 		}
-	}).log(callbackLog);
+	});
 }
 
 exports.scrape = scrape;
-var options = {
-	includes : ['salsa']
-};
-scrape(options);
